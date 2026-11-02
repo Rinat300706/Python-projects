@@ -1,38 +1,57 @@
 import random 
 
-print(" \nWelcome to the Number Guessing Game!\n ")
-print("\nI'm thinking of a number between 1 and 100.\n ")
 
-secret_number = random.randint(1,100)
+def show_welcome():
+    print(" \nWelcome to the Number Guessing Game!\n ")
+    print("\nI'm thinking of a number between 1 and 100.\n ")
 
 
-attempts = 0
+def play_game():
+
+    secret_number = random.randint(1,100)
+
+    attempts = 0
+
+    while True:
+        print(" \nEnter your guess: ")
+        guess = input()
+
+        try:
+            guess_int = int(guess)
+        except ValueError:
+            print("Please enter a valid number!")
+            continue
+
+        if guess_int < 1 or guess_int > 100:
+            print("Please enter a number between 1 and 100")
+            continue
+
+
+        print("Your guess is: "+ guess)
+        attempts = attempts + 1
+        
+        if guess_int > secret_number:        
+            print(" Too High!")    
+        elif guess_int < secret_number: 
+            print("Too Low!")
+        else: 
+            print(" Correct! You Won! ")
+            print(f"You guessed the answer in {attempts} attempts!")
+            break 
+
+show_welcome()
 
 while True:
-    print(" \nEnter your guess: ")
-    guess = input()
 
-    try:
-        guess_int = int(guess)
-    except ValueError:
-        print("Please enter a valid number!")
-        continue
+    play_game()
 
-    if guess_int < 1 or guess_int > 100:
-        print("please enter a number between 1 and 100")
-        continue
+    answer = ""
 
+    while answer not in ("y", "n"):
+        print("\nWould you like to play again? (y/n): ")
+        answer = input().strip().lower()
 
-    print("Your guess is: "+ guess)
-    attempts = attempts + 1
-    
-    if guess_int > secret_number:        
-        print(" Too High!")    
-    elif guess_int < secret_number: 
-        print("Too Low!")
-    else: 
-        print(" Correct! You Won! ")
-        print(f"You guessed the answer in {attempts} attempts!")
+    if answer == "n":
+        print("\nThanks for playing!")
         break 
-
     
